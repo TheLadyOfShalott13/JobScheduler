@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Status</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Job Tracker</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Welcome, {{ user.username }}</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Job Status - {{ job.name }}</h1>
+            <div class="btn-group" role="group">
+                <a class="btn btn-secondary" href="{% url 'user-jobs' %}">Your Jobs</a>
+                <a class="btn btn-primary" href="{% url 'submit-job' %}">Submit New Job</a>
+            </div>
+        </div>
+        <div class="card mt-4">
+            <div class="card-body">
+                <p><strong>Status:</strong> {{ job.status }}</p>
+                <p><strong>Estimated Duration:</strong> {{ job.duration }} days</p>
+                <p><strong>Priority Level:</strong> {{ job.priority }}</p>
+                <p><strong>Deadline:</strong> {{ job.deadline }}</p>
+                <p><strong>Start Time:</strong> {{ job.start_time }}</p>
+                <p><strong>End Time:</strong> {{ job.end_time }}</p>
+            </div>
+        </div>
+        <h2 class="mt-4">Job Status History</h2>
+        <ul class="list-group">
+            {% if statuses %}
+                {% for status in statuses %}
+                <li class="list-group-item">{{ status.timestamp }} - {{ status.status }}</li>
+                {% endfor %}
+            {% else %}
+                <li class="list-group-item">No status history available for this job.</li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
